@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -40,6 +41,7 @@ public class ShowDescription extends Activity implements OnClickListener{
 	private static final String HOOK_URL = "http://feedseries.herokuapp.com/newUserShow";
 	private String email = "";
 	private String showId = "";
+	SharedPreferences pref;
 	
 	@SuppressLint("NewApi")
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class ShowDescription extends Activity implements OnClickListener{
         try {
 			jsonObject = new JSONObject(json);
 			showId = jsonObject.getString("showId");
-			SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+			pref = getApplicationContext().getSharedPreferences("MyPref", 0);
 			email = pref.getString("email", null);
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
@@ -68,7 +70,7 @@ public class ShowDescription extends Activity implements OnClickListener{
         
         try {
 			title.setText(jsonObject.getString("showTitle"));
-			desc.setText(jsonObject.getString("title"));
+			desc.setText(jsonObject.getString("overview"));
 			
 			ImageLoader imgLoader = new ImageLoader(getApplicationContext());
 			imgLoader.DisplayImage(jsonObject.getString("poster"), image);
@@ -104,9 +106,7 @@ public class ShowDescription extends Activity implements OnClickListener{
 		protected void onPostExecute(String file_url) {
 			// dismiss the dialog after getting all products
 			pDialog.dismiss();
-			Intent i = new Intent(getApplicationContext(), ShowActivity.class);
-			startActivity(i);
-//    		finish();
+    		finish();
 		}
 		
 		
@@ -118,6 +118,10 @@ public class ShowDescription extends Activity implements OnClickListener{
     	params.add(new BasicNameValuePair("email", email));
     	jsonParser.makeHttpRequest(HOOK_URL, "POST",
 				params);
+    	
+//    	Editor editor = pref.edit();
+//    	editor.putString("nuevaSerie", "true");
+//    	editor.commit();
     }
 
 	@Override
@@ -125,7 +129,6 @@ public class ShowDescription extends Activity implements OnClickListener{
 		if(view == seguir){
 			try {
 				new seguir().execute();
-				finish();
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

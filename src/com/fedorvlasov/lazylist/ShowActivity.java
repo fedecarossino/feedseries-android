@@ -6,19 +6,25 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,6 +39,7 @@ import com.menu.ProfileActivity;
 public class ShowActivity extends Activity {
     
     private static final String MY_SHOWS_URL = "http://feedseries.herokuapp.com/getEpisodes?limit=10&offset=0";
+    private static final String MY_SHOWS_URL_SEARCH = "http://feedseries.herokuapp.com/getEpisodesByShow?title=";
 	ListView list;
 	private ProgressDialog pDialog;
 	int offset = 0;
@@ -41,6 +48,8 @@ public class ShowActivity extends Activity {
     // Creating JSON Parser object
  	JSONParser jsonParser = new JSONParser();
  	JSONObject json = new JSONObject();
+ 	EditText inputSearch;
+ 	InputMethodManager keyboard;
     
     	
     @Override
@@ -49,6 +58,11 @@ public class ShowActivity extends Activity {
         setContentView(R.layout.show_list);
         
         list=(ListView)findViewById(R.id.list);
+        inputSearch = (EditText) findViewById(R.id.inputSearchShow);
+
+    	keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        keyboard.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
+        
         new LoadShows().execute();
         
 //        Button b=(Button)findViewById(R.id.button1);
@@ -75,25 +89,43 @@ public class ShowActivity extends Activity {
 
 			}
 		});		
-        list.setOnScrollListener(new OnScrollListener() {
-
-			@Override
-		    public void onScroll(AbsListView view, int firstVisibleItem, 
-		            int visibleItemCount, int totalItemCount) {
-		            //Check if the last view is visible
-		            if (++firstVisibleItem + visibleItemCount > totalItemCount) {
-		                offset = offset + limit;
-		                
-		            }
-		        }
-
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				// TODO Auto-generated method stub
-				
-			}
+        
+        inputSearch.setOnKeyListener(new OnKeyListener() {
+        	@Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                  // Perform action on key press
+                	new LoadShows().execute();
+                	keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
+                  return true;
+                }
+                return false;
+            }
 
         });
+//        list.setOnScrollListener(new OnScrollListener() {
+//
+//			@Override
+//		    public void onScroll(AbsListView view, int firstVisibleItem, 
+//		            int visibleItemCount, int totalItemCount) {
+//		            //Check if the last view is visible
+//		            if (++firstVisibleItem + visibleItemCount > totalItemCount) {
+//		                offset = offset + limit;
+//		                
+//		            }
+//		        }
+//
+//			@Override
+//			public void onScrollStateChanged(AbsListView view, int scrollState) {
+//				// TODO Auto-generated method stub
+//				offset = offset + limit;
+//				
+//			}
+//
+//        });
         
     }
     private void setLazyAdapter() throws JSONException{
@@ -132,8 +164,13 @@ public class ShowActivity extends Activity {
     	
 		@Override
 		protected String doInBackground(String... arg0) {
-	        json = jsonParser.makeHttpRequest(MY_SHOWS_URL, "GET",
-					null);
+			if(!inputSearch.getText().toString().equals("")){
+				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString(), "GET",
+						null);
+			}else{
+				json = jsonParser.makeHttpRequest(MY_SHOWS_URL, "GET",
+						null);
+			}
 			Log.d("Outbox JSON: ", json.toString());
 			
 			return null;

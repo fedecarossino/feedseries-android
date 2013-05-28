@@ -48,9 +48,13 @@ public class LazyAdapter extends BaseAdapter {
 
         try {
 	        JSONObject jsonData = (JSONObject) data.get(position);
-	        TextView text=(TextView)vi.findViewById(R.id.title);;
+	        TextView text=(TextView)vi.findViewById(R.id.title);
+	        TextView season = (TextView) vi.findViewById(R.id.duration);
 	        ImageView image=(ImageView)vi.findViewById(R.id.list_image);
-	        text.setText(jsonData.getString("title"));
+	        TextView artist = (TextView) vi.findViewById(R.id.artist);
+	        artist.setText(jsonData.getString("title"));
+	        text.setText(jsonData.getString("showTitle"));
+	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
 			imageLoader.DisplayImage(jsonData.getString("poster"), image);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

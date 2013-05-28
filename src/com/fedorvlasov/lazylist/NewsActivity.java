@@ -41,7 +41,7 @@ public class NewsActivity extends Activity {
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.show_list);
+	        setContentView(R.layout.show_list_delete);
 	        
 	        list=(ListView)findViewById(R.id.list);
 	        new LoadShows().execute();

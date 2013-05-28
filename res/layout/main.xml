@@ -92,9 +92,8 @@
 		        android:gravity="center"
 		        android:text="New to Wabila? Register here"
 		        android:textColor="#0b84aa"
-		        android:textSize="20dip">
-		        <requestFocus />
-		    </TextView>
+		        android:textSize="20dip"/>
+		        
 		</LinearLayout>
   		
   </RelativeLayout>

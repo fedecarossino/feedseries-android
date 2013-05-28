@@ -40,7 +40,7 @@ public class MyShowActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show_list);
+        setContentView(R.layout.show_list_delete);
         
         list=(ListView)findViewById(R.id.list);
         new LoadShows().execute();
@@ -62,7 +62,6 @@ public class MyShowActivity extends Activity {
 	    	    b.putString("JSONArray",data.toString());
 	    	    i.putExtras(b);
 	    		startActivity(i);
-	    		finish();
 
 			}
 		});	
@@ -72,6 +71,9 @@ public class MyShowActivity extends Activity {
     	SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
 		String email = pref.getString("email", null);
     	adapter=new MyShowLazyAdapter(this, json.getJSONArray("data"), email);
+    }
+    private void setLoadLazyAdapter() throws JSONException{
+    	new LoadShows().execute();
     }
     @Override
     public void onDestroy()
@@ -118,6 +120,7 @@ public class MyShowActivity extends Activity {
 			try {
 				setLazyAdapter();
 				list.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -135,22 +138,21 @@ public class MyShowActivity extends Activity {
 	
 	
     class userShowDelete extends AsyncTask<String, String, String> {
-
-    	
 		@Override
 		protected String doInBackground(String... email) {
 			
 	        json = jsonParser.makeHttpRequest(MY_SHOWS_DELELTE_URL+"?email="+email[0]+"&showId="+showIdDelete, "DELETE",
 					null);
 			Log.d("Outbox JSON: ", json.toString());
-			
 			return null;
 		}
-		
 		protected void onPostExecute(String file_url) {
-			Intent i = new Intent(getApplicationContext(), MyShowActivity.class);
-			startActivity(i);
+			try {
+				setLoadLazyAdapter();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-
     }
 }

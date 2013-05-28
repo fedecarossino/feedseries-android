@@ -1,9 +1,15 @@
 package com.menu;
 
+import android.app.LocalActivityManager;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 
 import com.fedorvlasov.lazylist.MyShowActivity;
@@ -13,6 +19,8 @@ import com.google.android.gcm.demo.app.R;
 
 public class AndroidTabAndListView extends TabActivity {
 	// TabSpec Names
+	TabHost tabHost;
+	SharedPreferences pref;
 	
     @SuppressWarnings("deprecation")
 	@Override
@@ -20,7 +28,7 @@ public class AndroidTabAndListView extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainshows);
         
-        TabHost tabHost = getTabHost();
+        tabHost = getTabHost();
         
         // Profile Tab
         TabSpec profileSpec = tabHost.newTabSpec("News");
@@ -32,6 +40,7 @@ public class AndroidTabAndListView extends TabActivity {
         TabSpec outboxSpec = tabHost.newTabSpec("My Shows");
         outboxSpec.setIndicator("My Shows", getResources().getDrawable(R.drawable.icon_outbox));
         Intent outboxIntent = new Intent(this, MyShowActivity.class);
+        outboxIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         outboxSpec.setContent(outboxIntent);
 
         // Inbox Tab
@@ -44,5 +53,28 @@ public class AndroidTabAndListView extends TabActivity {
         tabHost.addTab(profileSpec); // Adding Profile tab
         tabHost.addTab(outboxSpec); // Adding Outbox tab
         tabHost.addTab(inboxSpec); // Adding Inbox tab
+        
+        tabHost.setOnTabChangedListener(new OnTabChangeListener(){
+
+			@Override
+			public void onTabChanged(String arg0) {
+//				pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+//				String newShow = pref.getString("nuevaSerie", null);
+//				if(newShow != null && arg0.contains("My Shows")){
+//					
+//					LocalActivityManager manager = getLocalActivityManager();
+//					String currentTag = tabHost.getCurrentTabTag();
+//					manager.destroyActivity(currentTag, true);
+//					manager.startActivity(currentTag, new Intent(tabHost.getContext(), MyShowActivity.class));
+//					
+//					Editor editor = pref.edit();
+//					editor.putString("nuevaSerie", null);
+//					editor.commit();
+//				}
+				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	            imm.hideSoftInputFromWindow(tabHost.getApplicationWindowToken(), 0);
+			}
+        	
+        });
     }
 }

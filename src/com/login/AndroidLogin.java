@@ -2,7 +2,6 @@ package com.login;
 
 
 import static com.google.android.gcm.demo.app.CommonUtilities.SENDER_ID;
-import static com.google.android.gcm.demo.app.CommonUtilities.SERVER_URL;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +31,8 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class AndroidLogin extends Activity implements OnClickListener {
 	Button ok,back,exit;
 	TextView result,registerScreen;
 	SharedPreferences pref;
+	EditText pword,uname;
 	
 	AsyncTask<Void, Void, Void> mRegisterTask;
 	
@@ -72,6 +74,10 @@ public class AndroidLogin extends Activity implements OnClickListener {
 	        // Login button clicked
 	        ok = (Button)findViewById(R.id.btn_login);
 	        ok.setOnClickListener(this);
+	        pword = (EditText)findViewById(R.id.txt_password);
+	        uname = (EditText)findViewById(R.id.txt_username);
+	        
+	        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	        
 	        result = (TextView)findViewById(R.id.lbl_result);
 		}
@@ -122,10 +128,8 @@ public class AndroidLogin extends Activity implements OnClickListener {
 
         try {
             // Add user name and password
-        	EditText uname = (EditText)findViewById(R.id.txt_username);
+        	
         	String username = uname.getText().toString();
-
-        	EditText pword = (EditText)findViewById(R.id.txt_password);
         	String password = pword.getText().toString();
         	
         	HttpGet httpget = new HttpGet("http://feedseries.herokuapp.com/getUser?email="+username+"&pass="+password);

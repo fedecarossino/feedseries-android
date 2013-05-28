@@ -63,9 +63,13 @@ public class MyShowLazyAdapter extends BaseAdapter {
 
         try {
 	        JSONObject jsonData = (JSONObject) data.get(position);
-	        TextView text=(TextView)vi.findViewById(R.id.title);;
+	        TextView text=(TextView)vi.findViewById(R.id.title);
+	        TextView season = (TextView) vi.findViewById(R.id.duration);
+	        TextView artist = (TextView) vi.findViewById(R.id.artist);
 	        ImageView image=(ImageView)vi.findViewById(R.id.list_image);
-	        text.setText(jsonData.getString("title"));
+	        text.setText(jsonData.getString("showTitle"));
+	        artist.setText(jsonData.getString("title"));
+	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
 	        
 			imageLoader.DisplayImage(jsonData.getString("poster"), image);
 			
@@ -76,12 +80,9 @@ public class MyShowLazyAdapter extends BaseAdapter {
 	    	   @Override
 	    	    public void onClick(View arg0) {
 	    		    String showId = arg0.findViewById(R.id.buttonnoseguir).getTag().toString();
-//	    		    JSONParser jsonParser = new JSONParser();
-//	    		    jsonParser.makeHttpRequest(MY_SHOWS_DELELTE_URL+"?email=FEDE@GMAIL.COM&showId="+showId, "DELETE",
-//	    					null);
-//	    		    MyShowActivity deleteShowIdUser = new MyShowActivity();
-//	    		    deleteShowIdUser.DeleteUserShow(userEmail,showId);
-	    		    new userShowDelete().execute(userEmail, showId);
+	    		    MyShowActivity fede = (MyShowActivity) activity;
+	    		    fede.DeleteUserShow(userEmail, showId);
+//	    		    new userShowDelete().execute(userEmail, showId);
 
 	    	    }
 		    });
@@ -96,9 +97,9 @@ public class MyShowLazyAdapter extends BaseAdapter {
 
     	
 		@Override
-		protected String doInBackground(String... data) {
+		protected String doInBackground(String... dataAsync) {
 			
-	        JSONObject json = jsonParser.makeHttpRequest(MY_SHOWS_DELELTE_URL+"?email="+data[0]+"&showId="+data[1], "DELETE",
+	        JSONObject json = jsonParser.makeHttpRequest(MY_SHOWS_DELELTE_URL+"?email="+dataAsync[0]+"&showId="+dataAsync[1], "DELETE",
 					null);
 			Log.d("Outbox JSON: ", json.toString());
 			

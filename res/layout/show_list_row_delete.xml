@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/list_selector"
     android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
     android:padding="5dip" >
 
 	<!--  ListRow Left sied Thumbnail image -->
@@ -31,24 +32,37 @@
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
         android:textColor="#ff9800"
-        android:textSize="15dip"
+        android:text="Game of trons"
+        android:textSize="20dip"
         android:textStyle="bold"/>
 
 	<!-- Artist Name -->
     <TextView
-        android:id="@+id/artist"
+        android:id="@+id/episodeTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:textColor="#343434"
-        android:textSize="10dip"
+        android:textColor="#f1f1f1"
+        android:text="Capitulo epico"
+        android:textSize="13dip"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"/>
+    
+    <TextView
+        android:id="@+id/firstAiredMyShow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/episodeTitle"
+        android:layout_marginTop="5dip"
+        android:text="15/11/2013"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:textColor="#f1f1f1"
+        android:textSize="13dip" />
 
 	<!-- Rightend Duration -->
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/seasonMyShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/title"
@@ -63,14 +77,23 @@
       
      <!-- Rightend Arrow -->
 
-    <Button
+    <RatingBar
+        android:id="@+id/ratingBarMyShow"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:rating="2.4"
+        android:layout_below="@+id/firstAiredMyShow"
+        android:layout_toRightOf="@+id/thumbnail" />
+
+    <ImageButton
         android:id="@+id/buttonnoseguir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        android:layout_alignRight="@+id/duration"
-        android:layout_below="@+id/duration"
-        android:layout_marginTop="50dip"
-        android:text="No Seguir" />
+        android:layout_alignRight="@+id/episodeTitle"
+        android:layout_centerVertical="true"
+        android:focusableInTouchMode="true"
+        android:src="@drawable/delete_icon" />
 
 </RelativeLayout>

@@ -88,7 +88,7 @@ public class RegistrationActivity extends Activity implements OnClickListener{
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(RegistrationActivity.this);
-			pDialog.setMessage("Loading profile ...");
+			pDialog.setMessage("Loading ...");
 			pDialog.setIndeterminate(true);
 			pDialog.setCancelable(false);
 			pDialog.show();

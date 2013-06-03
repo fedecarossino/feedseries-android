@@ -74,9 +74,8 @@
 		  		android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
 		  		android:layout_marginTop="10dip"
-		  		android:text="Register New Account">
-		  		<requestFocus />
-		  </Button>
+		  		android:text="Register New Account"
+		  		android:textColor="#ff9800"/>
   		  <TextView android:layout_width="fill_parent"
   		      	android:id="@+id/resultRegister" 	
 		  		android:layout_height="wrap_content"

@@ -99,7 +99,7 @@ public class MyShowActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(MyShowActivity.this);
-			pDialog.setMessage("Loading Outbox ...");
+			pDialog.setMessage("Loading shows ...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(false);
 			pDialog.show();

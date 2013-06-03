@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,7 @@ import com.menu.ProfileActivity;
 
 public class ShowActivity extends Activity {
     
-    private static final String MY_SHOWS_URL = "http://feedseries.herokuapp.com/getEpisodes?limit=10&offset=0";
+    private static final String MY_SHOWS_URL = "http://feedseries.herokuapp.com/getEpisodes";
     private static final String MY_SHOWS_URL_SEARCH = "http://feedseries.herokuapp.com/getEpisodesByShow?title=";
 	ListView list;
 	private ProgressDialog pDialog;
@@ -50,6 +51,7 @@ public class ShowActivity extends Activity {
  	JSONObject json = new JSONObject();
  	EditText inputSearch;
  	InputMethodManager keyboard;
+ 	Button btnShoeMore;
     
     	
     @Override
@@ -88,7 +90,25 @@ public class ShowActivity extends Activity {
 	    		startActivity(i);
 
 			}
-		});		
+		});	
+        
+		// LoadMore button
+		btnShoeMore = new Button(this);
+		btnShoeMore.setText("Load More");
+		btnShoeMore.setTextColor(Color.parseColor("#ff9800"));
+
+		// Adding Load More button to lisview at bottom
+		list.addFooterView(btnShoeMore);
+		
+		btnShoeMore.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// Starting a new async task
+				offset=offset+limit;
+				new LoadShows().execute();
+			}
+		});
         
         inputSearch.setOnKeyListener(new OnKeyListener() {
         	@Override
@@ -97,6 +117,7 @@ public class ShowActivity extends Activity {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                     (keyCode == KeyEvent.KEYCODE_ENTER)) {
                   // Perform action on key press
+                	offset = 0;
                 	new LoadShows().execute();
                 	keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     keyboard.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
@@ -156,7 +177,7 @@ public class ShowActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(ShowActivity.this);
-			pDialog.setMessage("Loading Outbox ...");
+			pDialog.setMessage("Loading shows ...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(false);
 			pDialog.show();
@@ -164,11 +185,41 @@ public class ShowActivity extends Activity {
     	
 		@Override
 		protected String doInBackground(String... arg0) {
-			if(!inputSearch.getText().toString().equals("")){
-				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString(), "GET",
+			if(!inputSearch.getText().toString().equals("") && offset < 1){
+				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
 						null);
+			}else if(!inputSearch.getText().toString().equals("") && offset > 1){
+				try {
+					JSONArray jsonarray = json.getJSONArray("data");
+					JSONArray jsonData = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
+							null).getJSONArray("data");
+					for(int f = 0; f < jsonData.length(); f++){
+						jsonarray.put(jsonData.get(f));
+					}
+					json = new JSONObject("data");
+					json.put("data", jsonarray);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				};
+			}else if(offset > 1){
+				try {
+					JSONArray jsonarray = json.getJSONArray("data");
+					JSONArray jsonData = jsonParser.makeHttpRequest(MY_SHOWS_URL+"?limit="+limit+"&offset="+offset, "GET",
+							null).getJSONArray("data");
+					for(int f = 0; f < jsonData.length(); f++){
+						jsonarray.put(jsonData.get(f));
+					}
+					json = new JSONObject("data");
+					json.put("data", jsonarray);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				};
 			}else{
-				json = jsonParser.makeHttpRequest(MY_SHOWS_URL, "GET",
+				json = jsonParser.makeHttpRequest(MY_SHOWS_URL+"?limit="+limit+"&offset="+offset, "GET",
 						null);
 			}
 			Log.d("Outbox JSON: ", json.toString());
@@ -180,6 +231,7 @@ public class ShowActivity extends Activity {
 			try {
 				setLazyAdapter();
 				list.setAdapter(adapter);
+				list.setSelection(offset);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

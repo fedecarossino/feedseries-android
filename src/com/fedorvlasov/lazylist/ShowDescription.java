@@ -70,7 +70,7 @@ public class ShowDescription extends Activity implements OnClickListener{
         
         try {
 			title.setText(jsonObject.getString("showTitle"));
-			desc.setText(jsonObject.getString("overview"));
+			desc.setText(jsonObject.getString("showOverview"));
 			
 			ImageLoader imgLoader = new ImageLoader(getApplicationContext());
 			imgLoader.DisplayImage(jsonObject.getString("poster"), image);
@@ -87,7 +87,7 @@ public class ShowDescription extends Activity implements OnClickListener{
 		protected void onPreExecute() {
 			super.onPreExecute();
 			pDialog = new ProgressDialog(ShowDescription.this);
-			pDialog.setMessage("Loading profile ...");
+			pDialog.setMessage("Saving info ...");
 			pDialog.setIndeterminate(true);
 			pDialog.setCancelable(false);
 			pDialog.show();

@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.fedorvlasov.lazylist.MyShowActivity.LoadShows;
+import com.fedorvlasov.lazylist.MyShowActivity.userShowDelete;
 import com.google.android.gcm.demo.app.R;
 import com.menu.JSONParser;
 import com.menu.ProfileActivity;
@@ -28,11 +30,12 @@ import com.menu.ProfileActivity;
 public class NewsActivity extends Activity {
 	    
 	    private static final String NEWS_URL = "http://feedseries.herokuapp.com/getMessages?limit=10&offset=0";
+	    private static final String MESSAGE_DELELTE_URL = "http://feedseries.herokuapp.com/messageDeleteToUser";
 		ListView list;
 		private ProgressDialog pDialog;
 		int offset = 0;
 		int limit = 3;
-	    LazyAdapter adapter;
+	    DescriptionLazyAdapter adapter;
 	    // Creating JSON Parser object
 	 	JSONParser jsonParser = new JSONParser();
 	 	JSONObject json = new JSONObject();
@@ -92,8 +95,11 @@ public class NewsActivity extends Activity {
 	        });
 	        
 	    }
+	    private void setLoadLazyAdapter() throws JSONException{
+	    	new LoadShows().execute();
+	    }
 	    private void setLazyAdapter() throws JSONException{
-	    	adapter=new LazyAdapter(this, json.getJSONArray("data"));
+	    	adapter=new DescriptionLazyAdapter(this, json.getJSONArray("data"));
 	    }
 	    @Override
 	    public void onDestroy()
@@ -120,7 +126,7 @@ public class NewsActivity extends Activity {
 			protected void onPreExecute() {
 				super.onPreExecute();
 				pDialog = new ProgressDialog(NewsActivity.this);
-				pDialog.setMessage("Loading Outbox ...");
+				pDialog.setMessage("Loading messages ...");
 				pDialog.setIndeterminate(false);
 				pDialog.setCancelable(false);
 				pDialog.show();
@@ -145,6 +151,33 @@ public class NewsActivity extends Activity {
 					e.printStackTrace();
 				}
 				pDialog.dismiss();
+			}
+	    }
+	    
+		public void DeleteUserMessage(String messageId) {
+			new messageDelete().execute(messageId);
+			
+		}
+		
+		
+	    class messageDelete extends AsyncTask<String, String, String> {
+			@Override
+			protected String doInBackground(String... message) {
+				
+		        json = jsonParser.makeHttpRequest(MESSAGE_DELELTE_URL+"?messageId="+message[0], "DELETE",
+						null);
+				Log.d("Outbox JSON: ", json.toString());
+				return null;
+			}
+			protected void onPostExecute(String file_url) {
+				try {
+					setLoadLazyAdapter();
+					list.setAdapter(adapter);
+					adapter.notifyDataSetChanged();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 	    }
 	    

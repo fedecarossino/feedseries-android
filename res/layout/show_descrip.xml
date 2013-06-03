@@ -46,7 +46,8 @@
            android:layout_centerHorizontal="true"
            android:layout_below="@+id/imageshowdescrip"
            android:layout_centerVertical="true"
-           android:text="Seguir" />
+           android:text="Follow" 
+           android:textColor="#ff9800"/>
 
        <TextView
            android:id="@+id/descriptitle"

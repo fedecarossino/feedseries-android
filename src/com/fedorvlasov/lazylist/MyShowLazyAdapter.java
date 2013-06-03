@@ -16,7 +16,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.fedorvlasov.lazylist.MyShowActivity.userShowDelete;
@@ -64,16 +66,23 @@ public class MyShowLazyAdapter extends BaseAdapter {
         try {
 	        JSONObject jsonData = (JSONObject) data.get(position);
 	        TextView text=(TextView)vi.findViewById(R.id.title);
-	        TextView season = (TextView) vi.findViewById(R.id.duration);
-	        TextView artist = (TextView) vi.findViewById(R.id.artist);
+	        TextView season = (TextView) vi.findViewById(R.id.seasonMyShow);
+	        TextView artist = (TextView) vi.findViewById(R.id.episodeTitle);
+	        RatingBar rating = (RatingBar) vi.findViewById(R.id.ratingBarMyShow);
 	        ImageView image=(ImageView)vi.findViewById(R.id.list_image);
+	        TextView firstAired = (TextView) vi.findViewById(R.id.firstAiredMyShow);
+	        
+	        Float rat = Float.parseFloat(jsonData.getString("rating"))/100*5;
+	        
+	        rating.setRating(rat);
+	        firstAired.setText(jsonData.getString("firstAired"));
 	        text.setText(jsonData.getString("showTitle"));
 	        artist.setText(jsonData.getString("title"));
 	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
 	        
 			imageLoader.DisplayImage(jsonData.getString("poster"), image);
 			
-			Button b=(Button)vi.findViewById(R.id.buttonnoseguir);
+			ImageButton b=(ImageButton)vi.findViewById(R.id.buttonnoseguir);
 			b.setTag(jsonData.getString("showId"));
 			b.setOnClickListener(new OnClickListener() {
 

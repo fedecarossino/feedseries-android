@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +59,7 @@ public class NewsActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-		    		Intent i = new Intent(getApplicationContext(), ShowDescription.class);
+		    		Intent i = new Intent(getApplicationContext(), MyShowDescription.class);
 		    		Bundle b = new Bundle();    
 		    		JSONObject data = null;
 					try {
@@ -203,17 +204,26 @@ public class NewsActivity extends Activity {
 	        case R.id.menu_bookmark:
 	        	Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
 	        	startActivity(i);
-	    		finish();
+//	    		finish();
 	        	// Single menu item is selected do something
 	        	// Ex: launching new activity/screen or show alert message
 //	            Toast.makeText(AndroidMenusActivity.this, "Bookmark is Selected", Toast.LENGTH_SHORT).show();
 	            return true;
 	        case R.id.menu_save:
+	            ImageLoader cache = new ImageLoader(getApplicationContext());
+	            cache.clearCache();
+	            
+	            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+	        	Editor editor = pref.edit();
+	        	
+	        	editor.putString("email", null);
+	        	editor.commit();
+
+	        	finish();
+	        	System.exit(0);
 //	        	Toast.makeText(AndroidMenusActivity.this, "Save is Selected", Toast.LENGTH_SHORT).show();
 	            return true;
-	        case R.id.menu_search:
-//	        	Toast.makeText(AndroidMenusActivity.this, "Search is Selected", Toast.LENGTH_SHORT).show();
-	            return true;
+
 	        default:
 	            return super.onOptionsItemSelected(item);
 	        }

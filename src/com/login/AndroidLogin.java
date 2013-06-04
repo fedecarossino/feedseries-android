@@ -19,8 +19,10 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -36,8 +38,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fedorvlasov.lazylist.ImageLoader;
 import com.google.android.gcm.GCMRegistrar;
+import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.google.android.gcm.demo.app.R;
 import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.AndroidTabAndListView;
@@ -50,6 +55,7 @@ public class AndroidLogin extends Activity implements OnClickListener {
 	TextView result,registerScreen;
 	SharedPreferences pref;
 	EditText pword,uname;
+	int status;
 	
 	AsyncTask<Void, Void, Void> mRegisterTask;
 	
@@ -61,8 +67,9 @@ public class AndroidLogin extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-		
+        
 		if(pref.getString("email", null) != null && !GCMRegistrar.getRegistrationId(this).equals("")){
+//        if(pref.getString("email", null) != null){
 			Intent i = new Intent(getApplicationContext(), AndroidTabAndListView.class);
 			startActivity(i);
 			finish();
@@ -110,6 +117,9 @@ public class AndroidLogin extends Activity implements OnClickListener {
 		
 		protected void onPostExecute(String file_url) {
 			// dismiss the dialog after getting all products
+			if (status != 200){
+				result.setText("Incorrect password and/or email"); 
+			}
 			pDialog.dismiss();
 		}
 		
@@ -140,7 +150,7 @@ public class AndroidLogin extends Activity implements OnClickListener {
             
             int str = response.getStatusLine().getStatusCode();
             Log.w("SENCIDE", String.valueOf(str));
-            
+            status = str;
             if(str == 200)
             {
             	Log.w("SENCIDE", "TRUE");
@@ -150,18 +160,14 @@ public class AndroidLogin extends Activity implements OnClickListener {
             	
             	editor.putString("email", email);
             	editor.commit();
-//            	String redId = registerGCM();
-            	String redId = "df";
+            	String redId = registerGCM();
+//            	String redId = "df";
             	if(redId != null && !redId.equals("")){
             		Intent i = new Intent(getApplicationContext(), AndroidTabAndListView.class);
             		startActivity(i);
             		finish();
             	}
             	
-            }else
-            {
-            	Log.w("SENCIDE", "FALSE");
-            	result.setText(String.valueOf(str));            	
             }
 
         } catch (ClientProtocolException e) {
@@ -237,12 +243,42 @@ public class AndroidLogin extends Activity implements OnClickListener {
     	return total;
     }
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onClick(View view) {
 		if(view == ok){
 			try {
-				//postLoginData();
-				new Login().execute();
+				pword = (EditText)findViewById(R.id.txt_password);
+		        uname = (EditText)findViewById(R.id.txt_username);
+				ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+				Boolean isInternetPresent = cd.isConnectingToInternet();
+				if(!pword.getText().toString().equals("") && !uname.getText().toString().equals("")){
+					if(isInternetPresent){
+						new Login().execute();
+					}else{
+						AlertDialog alertDialog = new AlertDialog.Builder(
+		                        AndroidLogin.this).create();
+				 
+				        // Setting Dialog Title
+				        alertDialog.setTitle("Error");
+				 
+				        // Setting Dialog Message
+				        alertDialog.setMessage("No Internet, try later");
+				 
+				        // Setting Icon to Dialog
+				 
+				        // Setting OK Button
+				        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				                public void onClick(DialogInterface dialog, int which) {
+				                // Write your code here to execute after dialog closed
+				                Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
+				                }
+				        });
+				        alertDialog.show();
+					}
+				}else{
+					result.setText("Email and password can not be null"); 
+				}
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

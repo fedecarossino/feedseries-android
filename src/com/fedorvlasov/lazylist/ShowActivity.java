@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -268,11 +270,20 @@ public class ShowActivity extends Activity {
 //            Toast.makeText(AndroidMenusActivity.this, "Bookmark is Selected", Toast.LENGTH_SHORT).show();
             return true;
         case R.id.menu_save:
+            ImageLoader cache = new ImageLoader(getApplicationContext());
+            cache.clearCache();
+            
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        	Editor editor = pref.edit();
+        	
+        	editor.putString("email", null);
+        	editor.commit();
+            
+        	finish();
+        	System.exit(0);
 //        	Toast.makeText(AndroidMenusActivity.this, "Save is Selected", Toast.LENGTH_SHORT).show();
             return true;
-        case R.id.menu_search:
-//        	Toast.makeText(AndroidMenusActivity.this, "Search is Selected", Toast.LENGTH_SHORT).show();
-            return true;
+
         default:
             return super.onOptionsItemSelected(item);
         }

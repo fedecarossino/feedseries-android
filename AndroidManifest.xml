@@ -26,6 +26,7 @@
 
     <!-- GCM connects to Google Services. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- GCM requires a Google account. -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -84,6 +85,7 @@
         <activity android:name="com.fedorvlasov.lazylist.NewsActivity" />
         <activity android:name="com.fedorvlasov.lazylist.MyShowActivity" />
         <activity android:name="com.fedorvlasov.lazylist.ShowDescription" />
+        <activity android:name="com.fedorvlasov.lazylist.MyShowDescription" />
         <activity android:name="com.menu.AndroidMenusActivity" />
         <activity android:name="com.login.RegistrationActivity" />
 

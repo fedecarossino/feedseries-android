@@ -51,7 +51,7 @@ public class LazyAdapter extends BaseAdapter {
 	        JSONObject jsonData = (JSONObject) data.get(position);
 	        
 	        TextView text=(TextView)vi.findViewById(R.id.title);
-	        TextView season = (TextView) vi.findViewById(R.id.duration);
+//	        TextView season = (TextView) vi.findViewById(R.id.duration);
 	        ImageView image=(ImageView)vi.findViewById(R.id.list_image);
 	        TextView artist = (TextView) vi.findViewById(R.id.artist);
 	        TextView firstAires = (TextView) vi.findViewById(R.id.firstAired);
@@ -62,7 +62,7 @@ public class LazyAdapter extends BaseAdapter {
 	        firstAires.setText("Season "+jsonData.getString("season"));
 	        artist.setText("Episode "+ jsonData.getString("number"));
 	        text.setText(jsonData.getString("showTitle"));
-	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
+//	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
 			imageLoader.DisplayImage(jsonData.getString("poster"), image);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

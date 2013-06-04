@@ -43,9 +43,7 @@ public class AndroidMenusActivity extends Activity {
         case R.id.menu_save:
         	Toast.makeText(AndroidMenusActivity.this, "Save is Selected", Toast.LENGTH_SHORT).show();
             return true;
-        case R.id.menu_search:
-        	Toast.makeText(AndroidMenusActivity.this, "Search is Selected", Toast.LENGTH_SHORT).show();
-            return true;
+
         default:
             return super.onOptionsItemSelected(item);
         }

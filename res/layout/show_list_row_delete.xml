@@ -8,12 +8,12 @@
     android:padding="5dip" >
 
 	<!--  ListRow Left sied Thumbnail image -->
+<!--         android:background="@drawable/image_bg"  -->
 	<LinearLayout android:id="@+id/thumbnail" 
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:padding="3dip"		
         android:layout_alignParentLeft="true"
-        android:background="@drawable/image_bg" 
 	    android:layout_marginRight="5dip">
         
 		<ImageView     
@@ -94,6 +94,7 @@
         android:layout_alignRight="@+id/episodeTitle"
         android:layout_centerVertical="true"
         android:focusableInTouchMode="true"
-        android:src="@drawable/delete_icon" />
+        android:background="@null"
+        android:src="@drawable/menos" />
 
 </RelativeLayout>

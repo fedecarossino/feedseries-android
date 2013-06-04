@@ -19,11 +19,11 @@
         <!-- Login Form Ends -->
       
        <TextView
-          android:id="@+id/description"
+          android:id="@+id/descriptionMyshow"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
-          android:layout_below="@+id/descriptitle"
+          android:layout_below="@+id/descriptitleMyShow"
           android:layout_marginLeft="7dp"
           android:layout_marginRight="7dp"
           android:text="Description"
@@ -34,22 +34,22 @@
        	<!--  ListRow Left sied Thumbnail image -->
 
        <Button
-           android:id="@+id/buttonseguir"
+           android:id="@+id/buttonseguirMyShow"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_centerHorizontal="true"
-           android:layout_below="@+id/description"
+           android:layout_below="@+id/descriptionMyshow"
            android:layout_marginTop="5dp"
            android:layout_centerVertical="true"
-           android:text="Follow" 
+           android:text="Stop Follow" 
            android:textColor="#ff9800"/>
 
        <TextView
-           android:id="@+id/descriptitle"
+           android:id="@+id/descriptitleMyShow"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_alignParentLeft="true"
-           android:layout_below="@+id/imageshowdescrip"
+           android:layout_below="@+id/imageshowdescripMyShow"
            android:layout_marginTop="10dp"
            android:text="Title"
            android:textColor="#ff9800"
@@ -72,7 +72,7 @@
 <!--        </LinearLayout> -->
 
        <ImageView
-           android:id="@+id/imageshowdescrip"
+           android:id="@+id/imageshowdescripMyShow"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:layout_alignParentTop="true"

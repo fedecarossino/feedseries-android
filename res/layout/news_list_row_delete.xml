@@ -87,14 +87,14 @@
         android:layout_below="@+id/firstAiredMyShow"
         android:layout_toRightOf="@+id/thumbnail" />
 
-<!--     <ImageButton -->
-<!--         android:id="@+id/buttonnoseguir" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:layout_alignRight="@+id/episodeTitle" -->
-<!--         android:layout_centerVertical="true" -->
-<!--         android:focusableInTouchMode="true" -->
-<!--         android:background="@null" -->
-<!--         android:src="@drawable/menos" /> -->
+    <ImageButton
+        android:id="@+id/buttonnoseguir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/episodeTitle"
+        android:layout_centerVertical="true"
+        android:focusableInTouchMode="true"
+        android:background="@null"
+        android:src="@drawable/menos" />
 
 </RelativeLayout>

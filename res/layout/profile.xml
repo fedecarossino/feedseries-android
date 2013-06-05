@@ -16,6 +16,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginBottom="-4dp"
+	    android:textColor="#ff9800"
 	    android:text="Logout" />
 
  

@@ -58,7 +58,7 @@ public class DescriptionLazyAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.show_list_row_delete, null);
+            vi = inflater.inflate(R.layout.news_list_row_delete, null);
 
         try {
 	        JSONObject jsonData = (JSONObject) data.get(position);

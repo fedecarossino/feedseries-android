@@ -50,7 +50,7 @@ public class NewsActivity extends Activity {
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.show_list_delete);
+	        setContentView(R.layout.news_list_delete);
 	        
 	        list=(ListView)findViewById(R.id.list);
 
@@ -66,27 +66,27 @@ public class NewsActivity extends Activity {
 //	        b.setOnClickListener(listener);
 	        
 	        // Click event for single list row
-	        list.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-		    		Intent i = new Intent(getApplicationContext(), MyShowDescription.class);
-		    		Bundle b = new Bundle();    
-		    		JSONObject data = null;
-					try {
-						data = (JSONObject) json.getJSONArray("data").get(position);
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		    	    b.putString("JSONArray",data.toString());
-		    	    i.putExtras(b);
-		    		startActivity(i);
-		    		finish();
-
-				}
-			});		
+//	        list.setOnItemClickListener(new OnItemClickListener() {
+//
+//				@Override
+//				public void onItemClick(AdapterView<?> parent, View view,
+//						int position, long id) {
+//		    		Intent i = new Intent(getApplicationContext(), MyShowDescription.class);
+//		    		Bundle b = new Bundle();    
+//		    		JSONObject data = null;
+//					try {
+//						data = (JSONObject) json.getJSONArray("data").get(position);
+//					} catch (JSONException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//		    	    b.putString("JSONArray",data.toString());
+//		    	    i.putExtras(b);
+//		    		startActivity(i);
+//		    		finish();
+//
+//				}
+//			});		
 	        list.setOnScrollListener(new OnScrollListener() {
 
 				@Override

@@ -61,7 +61,7 @@ public class LazyAdapter extends BaseAdapter {
 
 	        firstAires.setText("Season "+jsonData.getString("season"));
 	        artist.setText("Episode "+ jsonData.getString("number"));
-	        text.setText(jsonData.getString("showTitle"));
+	        text.setText(jsonData.getString("showTitle")+" - "+jsonData.getString("number")+"x"+jsonData.getString("season"));
 //	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
 			imageLoader.DisplayImage(jsonData.getString("poster"), image);
 		} catch (JSONException e) {

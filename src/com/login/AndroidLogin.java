@@ -74,7 +74,7 @@ public class AndroidLogin extends Activity implements OnClickListener {
 			startActivity(i);
 			finish();
 		}else{
-	        setContentView(R.layout.main);
+	        setContentView(R.layout.main_login);
 	        
 	        registerScreen = (TextView) findViewById(R.id.link_to_register);
 	        registerScreen.setOnClickListener(this);

@@ -37,10 +37,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.fedorvlasov.lazylist.MyShowActivity.LoadShows;
 import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.google.android.gcm.demo.app.R;
-import com.menu.AndroidMenusActivity;
 import com.menu.AndroidTabAndListView;
 import com.menu.JSONParser;
-import com.menu.MyShowsActivity;
 import com.menu.ProfileActivity;
 
 public class ShowActivity extends Activity {
@@ -212,24 +210,9 @@ public class ShowActivity extends Activity {
     	
 		@Override
 		protected String doInBackground(String... arg0) {
-			if(!inputSearch.getText().toString().equals("") && offset < 1){
-				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
+			if(!inputSearch.getText().toString().equals("")){
+				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+1+"&offset="+0, "GET",
 						null);
-			}else if(!inputSearch.getText().toString().equals("") && offset > 1){
-				try {
-					JSONArray jsonarray = json.getJSONArray("data");
-					JSONArray jsonData = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
-							null).getJSONArray("data");
-					for(int f = 0; f < jsonData.length(); f++){
-						jsonarray.put(jsonData.get(f));
-					}
-					json = new JSONObject("data");
-					json.put("data", jsonarray);
-					
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				};
 			}else if(offset > 1){
 				try {
 					JSONArray jsonarray = json.getJSONArray("data");

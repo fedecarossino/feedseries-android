@@ -61,19 +61,19 @@
 
 	<!-- Rightend Duration -->
 
-    <TextView
-        android:id="@+id/seasonMyShow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/title"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/title"
-        android:layout_marginRight="5dip"
-        android:gravity="right"
-        android:text="5:45"
-        android:textColor="#10bcc9"
-        android:textSize="10dip"
-        android:textStyle="bold" />
+<!--     <TextView -->
+<!--         android:id="@+id/seasonMyShow" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignBottom="@+id/title" -->
+<!--         android:layout_alignParentRight="true" -->
+<!--         android:layout_alignTop="@id/title" -->
+<!--         android:layout_marginRight="5dip" -->
+<!--         android:gravity="right" -->
+<!--         android:text="5:45" -->
+<!--         android:textColor="#10bcc9" -->
+<!--         android:textSize="10dip" -->
+<!--         android:textStyle="bold" /> -->
       
      <!-- Rightend Arrow -->
 

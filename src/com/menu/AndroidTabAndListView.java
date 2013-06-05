@@ -32,20 +32,20 @@ public class AndroidTabAndListView extends TabActivity {
         
         // Profile Tab
         TabSpec profileSpec = tabHost.newTabSpec("News");
-        profileSpec.setIndicator("News", getResources().getDrawable(R.drawable.icon_profile));
+        profileSpec.setIndicator("", getResources().getDrawable(R.drawable.tab_news_large));
         Intent profileIntent = new Intent(this, NewsActivity.class);
         profileSpec.setContent(profileIntent);
 
         // Outbox Tab
         TabSpec outboxSpec = tabHost.newTabSpec("My Shows");
-        outboxSpec.setIndicator("My Shows", getResources().getDrawable(R.drawable.icon_outbox));
+        outboxSpec.setIndicator("", getResources().getDrawable(R.drawable.tab_my_shows_large));
         Intent outboxIntent = new Intent(this, MyShowActivity.class);
         outboxIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         outboxSpec.setContent(outboxIntent);
 
         // Inbox Tab
         TabSpec inboxSpec = tabHost.newTabSpec("Shows");
-        inboxSpec.setIndicator("Shows", getResources().getDrawable(R.drawable.icon_inbox));
+        inboxSpec.setIndicator("", getResources().getDrawable(R.drawable.tab_shows_large));
         Intent inboxIntent = new Intent(this, ShowActivity.class);
         inboxSpec.setContent(inboxIntent);
         

@@ -9,7 +9,7 @@
 
 	<!--  ListRow Left sied Thumbnail image -->
 <!--         android:background="@drawable/image_bg"  -->
-	<LinearLayout android:id="@+id/thumbnail" 
+	<LinearLayout android:id="@+id/thumbnailNews" 
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:padding="3dip"		
@@ -17,7 +17,7 @@
 	    android:layout_marginRight="5dip">
         
 		<ImageView     
-			android:id="@+id/list_image"   
+			android:id="@+id/list_imageNews"   
 	        android:layout_width="70dip"
 	        android:layout_height="100dip"
 	        android:src="@drawable/stub"/>
@@ -26,11 +26,11 @@
     
 	<!-- Title Of Song-->
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/titleNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_alignTop="@+id/thumbnailNews"
+        android:layout_toRightOf="@+id/thumbnailNews"
         android:textColor="#ff9800"
         android:text="Game of trons"
         android:textSize="20dip"
@@ -38,60 +38,60 @@
 
 	<!-- Artist Name -->
     <TextView
-        android:id="@+id/episodeTitle"
+        android:id="@+id/episodeTitleNews"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
+        android:layout_below="@id/titleNews"
         android:textColor="#f1f1f1"
         android:text="Capitulo epico"
         android:textSize="13dip"
         android:layout_marginTop="1dip"
-        android:layout_toRightOf="@+id/thumbnail"/>
+        android:layout_toRightOf="@+id/thumbnailNews"/>
     
     <TextView
-        android:id="@+id/firstAiredMyShow"
+        android:id="@+id/firstAiredNews"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/episodeTitle"
+        android:layout_below="@id/episodeTitleNews"
         android:layout_marginTop="5dip"
         android:text="15/11/2013"
-        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toRightOf="@+id/thumbnailNews"
         android:textColor="#f1f1f1"
         android:textSize="13dip" />
 
 	<!-- Rightend Duration -->
 
-    <TextView
-        android:id="@+id/seasonMyShow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/title"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/title"
-        android:layout_marginRight="5dip"
-        android:gravity="right"
-        android:text="5:45"
-        android:textColor="#10bcc9"
-        android:textSize="10dip"
-        android:textStyle="bold" />
+<!--     <TextView -->
+<!--         android:id="@+id/seasonNews" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignBottom="@+id/titleNews" -->
+<!--         android:layout_alignParentRight="true" -->
+<!--         android:layout_alignTop="@id/titleNews" -->
+<!--         android:layout_marginRight="5dip" -->
+<!--         android:gravity="right" -->
+<!--         android:text="5:45" -->
+<!--         android:textColor="#10bcc9" -->
+<!--         android:textSize="10dip" -->
+<!--         android:textStyle="bold" /> -->
       
      <!-- Rightend Arrow -->
 
     <RatingBar
-        android:id="@+id/ratingBarMyShow"
+        android:id="@+id/ratingBarNews"
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dip"
         android:rating="2.4"
-        android:layout_below="@+id/firstAiredMyShow"
-        android:layout_toRightOf="@+id/thumbnail" />
+        android:layout_below="@+id/firstAiredNews"
+        android:layout_toRightOf="@+id/thumbnailNews" />
 
     <ImageButton
-        android:id="@+id/buttonnoseguir"
+        android:id="@+id/buttonnoseguirNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/episodeTitle"
+        android:layout_alignRight="@+id/episodeTitleNews"
         android:layout_centerVertical="true"
         android:focusableInTouchMode="true"
         android:background="@null"

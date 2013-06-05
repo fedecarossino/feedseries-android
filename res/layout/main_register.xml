@@ -12,15 +12,18 @@
   		<LinearLayout android:id="@+id/header"
   				android:layout_width="fill_parent"
   				android:layout_height="wrap_content"
-  				android:paddingTop="5dip"
+  				android:paddingTop="35dip"
   				android:paddingBottom="5dip">
   				<!-- Logo Start-->
-  				<ImageView android:src="@drawable/logo_wabila"
-  							android:layout_width="wrap_content"
-  							android:layout_height="wrap_content"
-  							android:layout_alignParentTop="true"
-           					android:layout_centerHorizontal="true"
-  							android:layout_marginLeft="10dip"/>
+
+  				<ImageView
+  				    android:layout_width="match_parent"
+  				    android:layout_height="wrap_content"
+  				    android:layout_alignParentTop="true"
+  				    android:layout_centerHorizontal="true"
+  				    android:layout_marginLeft="10dip"
+  				    android:src="@drawable/logo_wabila" />
+
   				<!-- Logo Ends -->
   		</LinearLayout>
   		<!--  Header Ends --> 
@@ -33,6 +36,7 @@
 		  android:orientation="vertical"
 		  android:layout_width="match_parent"
 		  android:layout_height="wrap_content"
+		  android:layout_marginTop="35dip"
 		  android:padding="10dip"
 		  android:layout_below="@id/header">
 		  <!-- Full Name Label -->
@@ -89,7 +93,7 @@
 		  		android:text="Already has account! Login here"
 		  		android:gravity="center"
 		  		android:textSize="20dip"
-		  		android:textColor="#025f7c">
+		  		android:textColor="#ff9800">
 		  		<requestFocus />
 		    </TextView>
 		    

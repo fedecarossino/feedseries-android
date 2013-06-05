@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:fillViewport="true">
+  <RelativeLayout 
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content" android:background="#29292D">
+  		
+  		<!--  Header  Starts-->
+
+  		<LinearLayout
+  		    android:id="@+id/header"
+  		    android:layout_width="fill_parent"
+  		    android:layout_height="wrap_content"
+  		    android:paddingBottom="5dip"
+  		    android:paddingTop="35dip" >
+
+  		    <!-- Logo Start -->
+
+  		    <ImageView
+  		        android:layout_width="match_parent"
+  		        android:layout_height="wrap_content"
+  		        android:layout_marginLeft="10dip"
+  		        android:layout_weight="0"
+  		        android:src="@drawable/logo_wabila" />
+
+  		    <!-- Logo Ends -->
+  		</LinearLayout>
+
+  		<!--  Header Ends -->  
+  		<!-- Footer Start -->
+  		<!-- Footer Ends -->
+  		
+  		<!-- Login Form -->
+  		<!-- Login Form Ends -->
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentLeft="true"
+		    android:layout_marginTop="35dip"
+		    android:orientation="vertical"
+		    android:padding="10dip" 
+			android:layout_below="@id/header">
+
+		    <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Email"
+		        android:textColor="#FFFFFF" />
+
+		    <EditText
+		        android:id="@+id/txt_username"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="20dip"
+		        android:layout_marginTop="5dip"
+		        android:singleLine="true" >
+
+		    </EditText>
+
+		    <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Password"
+		        android:textColor="#FFFFFF" />
+
+		    <EditText
+		        android:id="@+id/txt_password"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="5dip"
+		        android:password="true"
+		        android:singleLine="true" />
+
+		    <Button
+		        android:id="@+id/btn_login"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="10dip"
+		        android:textColor="#ff9800"
+		        android:text="Login" />
+
+		    <TextView
+		        android:id="@+id/lbl_result"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textColor="#FFFFFF" />
+
+		    <TextView
+		        android:id="@+id/link_to_register"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="40dip"
+		        android:layout_marginTop="40dip"
+		        android:gravity="center"
+		        android:text="New to Wabila? Register here"
+		        android:textColor="#ff9800"
+		        android:textSize="20dip"/>
+		        
+		</LinearLayout>
+  		
+  </RelativeLayout>
+</ScrollView>

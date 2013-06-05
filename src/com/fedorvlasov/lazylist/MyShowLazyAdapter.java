@@ -66,7 +66,7 @@ public class MyShowLazyAdapter extends BaseAdapter {
         try {
 	        JSONObject jsonData = (JSONObject) data.get(position);
 	        TextView text=(TextView)vi.findViewById(R.id.title);
-	        TextView season = (TextView) vi.findViewById(R.id.seasonMyShow);
+//	        TextView season = (TextView) vi.findViewById(R.id.seasonMyShow);
 	        TextView artist = (TextView) vi.findViewById(R.id.episodeTitle);
 	        RatingBar rating = (RatingBar) vi.findViewById(R.id.ratingBarMyShow);
 	        ImageView image=(ImageView)vi.findViewById(R.id.list_image);
@@ -76,25 +76,25 @@ public class MyShowLazyAdapter extends BaseAdapter {
 	        
 	        rating.setRating(rat);
 	        firstAired.setText(jsonData.getString("firstAired"));
-	        text.setText(jsonData.getString("showTitle"));
+	        text.setText(jsonData.getString("showTitle")+" - "+jsonData.getString("number")+"x"+jsonData.getString("season"));
 	        artist.setText(jsonData.getString("title"));
-	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
+//	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
 	        
 			imageLoader.DisplayImage(jsonData.getString("poster"), image);
 			
-			ImageButton b=(ImageButton)vi.findViewById(R.id.buttonnoseguir);
-			b.setTag(jsonData.getString("showId"));
-			b.setOnClickListener(new OnClickListener() {
-
-	    	   @Override
-	    	    public void onClick(View arg0) {
-	    		    String showId = arg0.findViewById(R.id.buttonnoseguir).getTag().toString();
-	    		    MyShowActivity fede = (MyShowActivity) activity;
-	    		    fede.DeleteUserShow(userEmail, showId);
-//	    		    new userShowDelete().execute(userEmail, showId);
-
-	    	    }
-		    });
+//			ImageButton b=(ImageButton)vi.findViewById(R.id.buttonnoseguir);
+//			b.setTag(jsonData.getString("showId"));
+//			b.setOnClickListener(new OnClickListener() {
+//
+//	    	   @Override
+//	    	    public void onClick(View arg0) {
+//	    		    String showId = arg0.findViewById(R.id.buttonnoseguir).getTag().toString();
+//	    		    MyShowActivity fede = (MyShowActivity) activity;
+//	    		    fede.DeleteUserShow(userEmail, showId);
+////	    		    new userShowDelete().execute(userEmail, showId);
+//
+//	    	    }
+//		    });
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

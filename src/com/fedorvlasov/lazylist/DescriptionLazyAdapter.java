@@ -62,30 +62,30 @@ public class DescriptionLazyAdapter extends BaseAdapter {
 
         try {
 	        JSONObject jsonData = (JSONObject) data.get(position);
-	        TextView text=(TextView)vi.findViewById(R.id.title);
-	        TextView season = (TextView) vi.findViewById(R.id.seasonMyShow);
-	        TextView artist = (TextView) vi.findViewById(R.id.episodeTitle);
-	        RatingBar rating = (RatingBar) vi.findViewById(R.id.ratingBarMyShow);
-	        ImageView image=(ImageView)vi.findViewById(R.id.list_image);
-	        TextView firstAired = (TextView) vi.findViewById(R.id.firstAiredMyShow);
+	        TextView text=(TextView)vi.findViewById(R.id.titleNews);
+//	        TextView season = (TextView) vi.findViewById(R.id.seasonNews);
+	        TextView artist = (TextView) vi.findViewById(R.id.episodeTitleNews);
+	        RatingBar rating = (RatingBar) vi.findViewById(R.id.ratingBarNews);
+	        ImageView image=(ImageView)vi.findViewById(R.id.list_imageNews);
+	        TextView firstAired = (TextView) vi.findViewById(R.id.firstAiredNews);
 	        
 	        Float rat = Float.parseFloat(jsonData.getString("rating"))/100*5;
 	        
 	        rating.setRating(rat);
 	        firstAired.setText(jsonData.getString("firstAired"));
-	        text.setText(jsonData.getString("showTitle"));
+	        text.setText(jsonData.getString("showTitle")+" - "+jsonData.getString("number")+"x"+jsonData.getString("season"));
 	        artist.setText(jsonData.getString("title"));
-	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
+//	        season.setText(jsonData.getString("number")+"x"+jsonData.getString("season"));
 	        
 			imageLoader.DisplayImage(jsonData.getString("poster"), image);
 			
-			ImageButton b=(ImageButton)vi.findViewById(R.id.buttonnoseguir);
+			ImageButton b=(ImageButton)vi.findViewById(R.id.buttonnoseguirNews);
 			b.setTag(jsonData.getString("messageId"));
 			b.setOnClickListener(new OnClickListener() {
 
 	    	   @Override
 	    	    public void onClick(View arg0) {
-	    		    String messageId = arg0.findViewById(R.id.buttonnoseguir).getTag().toString();
+	    		    String messageId = arg0.findViewById(R.id.buttonnoseguirNews).getTag().toString();
 	    		    NewsActivity fede = (NewsActivity) activity;
 	    		    fede.DeleteUserMessage(messageId);
 //	    		    new userShowDelete().execute(userEmail, showId);

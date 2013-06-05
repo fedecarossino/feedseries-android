@@ -1,25 +1,32 @@
 package com.fedorvlasov.lazylist;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -32,15 +39,21 @@ import com.menu.ProfileActivity;
 
 public class MyShowActivity extends Activity {
     
-    private static final String MY_SHOWS_URL = "http://feedseries.herokuapp.com/getEpisodesByUser?limit=10&offset=0";
+    private static final String MY_SHOWS_URL = "http://feedseries.herokuapp.com/getEpisodesByUser";
+    private static final String MY_SHOWS_URL_SEARCH = "http://feedseries.herokuapp.com/getEpisodesByShow?title=";
     private static final String MY_SHOWS_DELELTE_URL = "http://feedseries.herokuapp.com/deleteUserShow";
 	ListView list;
 	String showIdDelete = "";
 	private ProgressDialog pDialog;
     MyShowLazyAdapter adapter;
+    EditText inputSearch;
     // Creating JSON Parser object
  	JSONParser jsonParser = new JSONParser();
  	JSONObject json = new JSONObject();
+ 	InputMethodManager keyboard;
+	int offset = 0;
+	int limit = 3;
+	Button btnShoeMore;
  	
  	Button b;
     
@@ -49,6 +62,11 @@ public class MyShowActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_list_delete);
+        
+        inputSearch = (EditText) findViewById(R.id.inputSearchMyShow);
+
+    	keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        keyboard.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
         
         list=(ListView)findViewById(R.id.list);
         ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
@@ -80,6 +98,56 @@ public class MyShowActivity extends Activity {
 	    	    startActivityForResult(i, 1);
 			}
 		});	
+        
+		// LoadMore button
+		btnShoeMore = new Button(this);
+		btnShoeMore.setText("Load More");
+		btnShoeMore.setTextColor(Color.parseColor("#ff9800"));
+
+		// Adding Load More button to lisview at bottom
+		list.addFooterView(btnShoeMore);
+		
+		btnShoeMore.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// Starting a new async task
+				offset=offset+limit;
+		        ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+				Boolean isInternetPresent = cd.isConnectingToInternet();
+				
+				if(isInternetPresent){
+					new LoadShows().execute();
+				}else{
+					showAlert();
+				}
+			}
+		});
+        
+        inputSearch.setOnKeyListener(new OnKeyListener() {
+        	@Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                  // Perform action on key press
+                	offset = 0;
+                    ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+            		Boolean isInternetPresent = cd.isConnectingToInternet();
+            		
+            		if(isInternetPresent){
+            			new LoadShows().execute();
+            		}else{
+            			showAlert();
+            		}
+                	keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    keyboard.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
+                  return true;
+                }
+                return false;
+            }
+
+        });
         
     }
     
@@ -131,9 +199,47 @@ public class MyShowActivity extends Activity {
 		protected String doInBackground(String... arg0) {
 			SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
 			String email = pref.getString("email", null);
-	        json = jsonParser.makeHttpRequest(MY_SHOWS_URL+"&email="+email, "GET",
-					null);
-			Log.d("Outbox JSON: ", json.toString());
+			
+			if(!inputSearch.getText().toString().equals("") && offset < 1){
+				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
+						null);
+			}else if(!inputSearch.getText().toString().equals("") && offset > 1){
+				try {
+					JSONArray jsonarray = json.getJSONArray("data");
+					JSONArray jsonData = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
+							null).getJSONArray("data");
+					for(int f = 0; f < jsonData.length(); f++){
+						jsonarray.put(jsonData.get(f));
+					}
+					json = new JSONObject("data");
+					json.put("data", jsonarray);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				};
+			}else if(offset > 1){
+				try {
+					JSONArray jsonarray = json.getJSONArray("data");
+					JSONArray jsonData = jsonParser.makeHttpRequest(MY_SHOWS_URL+"?limit="+limit+"&offset="+offset+"&email="+email, "GET",
+							null).getJSONArray("data");
+					for(int f = 0; f < jsonData.length(); f++){
+						jsonarray.put(jsonData.get(f));
+					}
+					json = new JSONObject("data");
+					json.put("data", jsonarray);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				};
+			}else{
+				json = jsonParser.makeHttpRequest(MY_SHOWS_URL+"?limit="+limit+"&offset="+offset+"&email="+email, "GET",
+						null);
+			}
+			
+			
+			
 			
 			return null;
 		}

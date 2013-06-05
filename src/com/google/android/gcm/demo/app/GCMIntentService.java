@@ -17,6 +17,9 @@ package com.google.android.gcm.demo.app;
 
 import static com.google.android.gcm.demo.app.CommonUtilities.SENDER_ID;
 import static com.google.android.gcm.demo.app.CommonUtilities.displayMessage;
+
+import java.util.Random;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -121,7 +124,8 @@ public class GCMIntentService extends GCMBaseIntentService {
         
         // Vibrate if vibrate is enabled
         notification.defaults |= Notification.DEFAULT_VIBRATE;
-        notificationManager.notify(0, notification);  
+        notification.defaults |= Notification.DEFAULT_LIGHTS;
+        notificationManager.notify(1, notification);  
     }
 
 }

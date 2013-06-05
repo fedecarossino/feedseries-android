@@ -4,7 +4,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -24,7 +27,9 @@ import android.widget.ListView;
 
 import com.fedorvlasov.lazylist.MyShowActivity.LoadShows;
 import com.fedorvlasov.lazylist.MyShowActivity.userShowDelete;
+import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.google.android.gcm.demo.app.R;
+import com.login.AndroidLogin;
 import com.menu.JSONParser;
 import com.menu.ProfileActivity;
 
@@ -48,8 +53,15 @@ public class NewsActivity extends Activity {
 	        setContentView(R.layout.show_list_delete);
 	        
 	        list=(ListView)findViewById(R.id.list);
-	        new LoadShows().execute();
-	        
+
+	        ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+			Boolean isInternetPresent = cd.isConnectingToInternet();
+			
+			if(isInternetPresent){
+				new LoadShows().execute();
+			}else{
+				showAlert();
+			}
 //	        Button b=(Button)findViewById(R.id.button1);
 //	        b.setOnClickListener(listener);
 	        
@@ -96,7 +108,30 @@ public class NewsActivity extends Activity {
 	        });
 	        
 	    }
-	    private void setLoadLazyAdapter() throws JSONException{
+	    @SuppressWarnings("deprecation")
+		private void showAlert() {
+			AlertDialog alertDialog = new AlertDialog.Builder(
+                    NewsActivity.this).create();
+	 
+	        // Setting Dialog Title
+	        alertDialog.setTitle(getString(R.string.error_internet));
+	 
+	        // Setting Dialog Message
+	        alertDialog.setMessage(getString(R.string.error_internet_message));
+	 
+	        // Setting Icon to Dialog
+	 
+	        // Setting OK Button
+	        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog, int which) {
+	                // Write your code here to execute after dialog closed
+	                Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
+	                }
+	        });
+	        alertDialog.show();
+			
+		}
+		private void setLoadLazyAdapter() throws JSONException{
 	    	new LoadShows().execute();
 	    }
 	    private void setLazyAdapter() throws JSONException{

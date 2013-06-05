@@ -260,10 +260,10 @@ public class AndroidLogin extends Activity implements OnClickListener {
 		                        AndroidLogin.this).create();
 				 
 				        // Setting Dialog Title
-				        alertDialog.setTitle("Error");
+				        alertDialog.setTitle(getString(R.string.error_internet));
 				 
 				        // Setting Dialog Message
-				        alertDialog.setMessage("No Internet, try later");
+				        alertDialog.setMessage(getString(R.string.error_internet_message));
 				 
 				        // Setting Icon to Dialog
 				 

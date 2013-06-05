@@ -5,8 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -32,6 +34,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.fedorvlasov.lazylist.MyShowActivity.LoadShows;
+import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.google.android.gcm.demo.app.R;
 import com.menu.AndroidMenusActivity;
 import com.menu.AndroidTabAndListView;
@@ -67,7 +71,14 @@ public class ShowActivity extends Activity {
     	keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         keyboard.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
         
-        new LoadShows().execute();
+        ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+		Boolean isInternetPresent = cd.isConnectingToInternet();
+		
+		if(isInternetPresent){
+			new LoadShows().execute();
+		}else{
+			showAlert();
+		}
         
 //        Button b=(Button)findViewById(R.id.button1);
 //        b.setOnClickListener(listener);
@@ -108,7 +119,14 @@ public class ShowActivity extends Activity {
 			public void onClick(View arg0) {
 				// Starting a new async task
 				offset=offset+limit;
-				new LoadShows().execute();
+		        ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+				Boolean isInternetPresent = cd.isConnectingToInternet();
+				
+				if(isInternetPresent){
+					new LoadShows().execute();
+				}else{
+					showAlert();
+				}
 			}
 		});
         
@@ -120,7 +138,14 @@ public class ShowActivity extends Activity {
                     (keyCode == KeyEvent.KEYCODE_ENTER)) {
                   // Perform action on key press
                 	offset = 0;
-                	new LoadShows().execute();
+                    ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+            		Boolean isInternetPresent = cd.isConnectingToInternet();
+            		
+            		if(isInternetPresent){
+            			new LoadShows().execute();
+            		}else{
+            			showAlert();
+            		}
                 	keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     keyboard.hideSoftInputFromWindow(inputSearch.getWindowToken(), 0);
                   return true;
@@ -288,4 +313,28 @@ public class ShowActivity extends Activity {
             return super.onOptionsItemSelected(item);
         }
     }
+    
+    @SuppressWarnings("deprecation")
+	private void showAlert() {
+		AlertDialog alertDialog = new AlertDialog.Builder(
+                ShowActivity.this).create();
+ 
+        // Setting Dialog Title
+        alertDialog.setTitle(getString(R.string.error_internet));
+ 
+        // Setting Dialog Message
+        alertDialog.setMessage(getString(R.string.error_internet_message));
+ 
+        // Setting Icon to Dialog
+ 
+        // Setting OK Button
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                // Write your code here to execute after dialog closed
+                Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
+                }
+        });
+        alertDialog.show();
+		
+	}
 }

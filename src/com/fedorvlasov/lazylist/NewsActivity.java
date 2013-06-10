@@ -19,17 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
-import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.fedorvlasov.lazylist.MyShowActivity.LoadShows;
-import com.fedorvlasov.lazylist.MyShowActivity.userShowDelete;
 import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.google.android.gcm.demo.app.R;
-import com.login.AndroidLogin;
 import com.menu.JSONParser;
 import com.menu.ProfileActivity;
 
@@ -41,7 +38,8 @@ public class NewsActivity extends Activity {
 		private ProgressDialog pDialog;
 		int offset = 0;
 		int limit = 3;
-	    DescriptionLazyAdapter adapter;
+	    NewsLazyAdapter adapter;
+	    String messageId;
 	    // Creating JSON Parser object
 	 	JSONParser jsonParser = new JSONParser();
 	 	JSONObject json = new JSONObject();
@@ -71,19 +69,48 @@ public class NewsActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-		    		Intent i = new Intent(getApplicationContext(), MyShowDescription.class);
-		    		Bundle b = new Bundle();    
-		    		JSONObject data = null;
+					
+					JSONObject aux;
 					try {
-						data = (JSONObject) json.getJSONArray("data").get(position);
+						aux = (JSONObject) json.getJSONArray("data").get(position);
+						messageId = aux.getString("messageId");
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-		    	    b.putString("JSONArray",data.toString());
-		    	    i.putExtras(b);
-		    		startActivity(i);
-		    		finish();
+
+					AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewsActivity.this);
+			        // Setting Dialog Title
+			        alertDialog.setTitle(R.string.title_delete_message);
+			        // Setting Dialog Message
+			        alertDialog.setMessage(R.string.text_message_alert);
+			 
+			        // Setting Positive "Yes" Button
+			        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+			            public void onClick(DialogInterface dialog,int which) {
+			            	new messageDelete().execute(messageId);
+			            }
+			        });
+			 
+			        // Setting Negative "NO" Button
+			        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+			            public void onClick(DialogInterface dialog, int which) {
+			            dialog.cancel();
+			            }
+			        });
+			        alertDialog.show();
+//		    		Intent i = new Intent(getApplicationContext(), MyShowDescription.class);
+//		    		Bundle b = new Bundle();    
+//		    		JSONObject data = null;
+//					try {
+//						data = (JSONObject) json.getJSONArray("data").get(position);
+//					} catch (JSONException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//		    	    b.putString("JSONArray",data.toString());
+//		    	    i.putExtras(b);
+//		    		startActivity(i);
 
 				}
 			});		
@@ -135,7 +162,7 @@ public class NewsActivity extends Activity {
 	    	new LoadShows().execute();
 	    }
 	    private void setLazyAdapter() throws JSONException{
-	    	adapter=new DescriptionLazyAdapter(this, json.getJSONArray("data"));
+	    	adapter=new NewsLazyAdapter(this, json.getJSONArray("data"));
 	    }
 	    @Override
 	    public void onDestroy()

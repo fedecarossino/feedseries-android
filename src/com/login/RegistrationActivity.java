@@ -47,6 +47,7 @@ public class RegistrationActivity extends Activity implements OnClickListener{
 	private static final String REGISTER_URL = "http://feedseries.herokuapp.com/newUser";
 	JSONParser jsonParser = new JSONParser();
 	SharedPreferences pref;
+	boolean error = false;
 	AsyncTask<Void, Void, Void> mRegisterTask;
 	
     @Override
@@ -121,7 +122,13 @@ public class RegistrationActivity extends Activity implements OnClickListener{
 		protected void onPostExecute(String file_url) {
 			// dismiss the dialog after getting all products
 			pDialog.dismiss();
-    		finish();
+			if(!error){
+				Intent i = new Intent(getApplicationContext(), AndroidTabAndListView.class);
+        		startActivity(i);
+        		finish();
+			}else{
+				result.setText("Mail already exist"); 
+			}
 		}
 	 }
 	
@@ -135,9 +142,7 @@ public class RegistrationActivity extends Activity implements OnClickListener{
     	if(json.getString("message").contains("correctamente")){
     		registerGCM();
     	}else if(json.getString("message").contains("existe")){
-    		result.setText("El mail ya esta registrado"); 
-    	}else{
-        	result.setText("Error en el login"); 
+    		error = true;
     	}
     	
     }

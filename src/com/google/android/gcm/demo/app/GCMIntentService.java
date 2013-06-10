@@ -67,9 +67,10 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onMessage(Context context, Intent intent) {
         Log.i(TAG, "Received message");
         String message = intent.getExtras().getString("message");
+        String messageId = intent.getExtras().getString("messageId");
         displayMessage(context, message);
         // notifies user
-        generateNotification(context, message);
+        generateNotification(context, message, messageId);
     }
 
     @Override
@@ -78,7 +79,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         String message = getString(R.string.gcm_deleted, total);
         displayMessage(context, message);
         // notifies user
-        generateNotification(context, message);
+       // generateNotification(context, message);
     }
 
     @Override
@@ -99,7 +100,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     /**
      * Issues a notification to inform the user that server has sent a message.
      */
-    private static void generateNotification(Context context, String message) {
+    private static void generateNotification(Context context, String message, String messageId) {
         int icon = R.drawable.ic_stat_gcm;
         long when = System.currentTimeMillis();
         NotificationManager notificationManager = (NotificationManager)
@@ -125,7 +126,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         // Vibrate if vibrate is enabled
         notification.defaults |= Notification.DEFAULT_VIBRATE;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
-        notificationManager.notify(1, notification);  
+        notificationManager.notify(Integer.valueOf(messageId), notification);  
     }
 
 }

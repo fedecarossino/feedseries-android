@@ -1,5 +1,8 @@
 package com.fedorvlasov.lazylist;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -201,12 +204,17 @@ public class MyShowActivity extends Activity {
 			String email = pref.getString("email", null);
 			
 			if(!inputSearch.getText().toString().equals("") && offset < 1){
-				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
-						null);
+				try {
+					json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+URLEncoder.encode(inputSearch.getText().toString(), "utf-8")+"&limit="+limit+"&offset="+offset, "GET",
+							null);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else if(!inputSearch.getText().toString().equals("") && offset > 1){
 				try {
 					JSONArray jsonarray = json.getJSONArray("data");
-					JSONArray jsonData = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+limit+"&offset="+offset, "GET",
+					JSONArray jsonData = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+URLEncoder.encode(inputSearch.getText().toString(), "utf-8")+"&limit="+limit+"&offset="+offset, "GET",
 							null).getJSONArray("data");
 					for(int f = 0; f < jsonData.length(); f++){
 						jsonarray.put(jsonData.get(f));
@@ -215,6 +223,9 @@ public class MyShowActivity extends Activity {
 					json.put("data", jsonarray);
 					
 				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				};

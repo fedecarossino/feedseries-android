@@ -87,14 +87,14 @@
         android:layout_below="@+id/firstAiredNews"
         android:layout_toRightOf="@+id/thumbnailNews" />
 
-    <ImageButton
-        android:id="@+id/buttonnoseguirNews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/episodeTitleNews"
-        android:layout_centerVertical="true"
-        android:focusableInTouchMode="true"
-        android:background="@null"
-        android:src="@drawable/menos" />
+<!--     <ImageButton -->
+<!--         android:id="@+id/buttonnoseguirNews" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignRight="@+id/episodeTitleNews" -->
+<!--         android:layout_centerVertical="true" -->
+<!--         android:focusableInTouchMode="true" -->
+<!--         android:background="@null" -->
+<!--         android:src="@drawable/menos" /> -->
 
 </RelativeLayout>

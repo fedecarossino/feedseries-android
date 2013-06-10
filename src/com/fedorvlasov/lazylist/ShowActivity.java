@@ -1,5 +1,8 @@
 package com.fedorvlasov.lazylist;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -211,8 +214,13 @@ public class ShowActivity extends Activity {
 		@Override
 		protected String doInBackground(String... arg0) {
 			if(!inputSearch.getText().toString().equals("")){
-				json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+inputSearch.getText().toString()+"&limit="+1+"&offset="+0, "GET",
-						null);
+				try {
+					json = jsonParser.makeHttpRequest(MY_SHOWS_URL_SEARCH+URLEncoder.encode(inputSearch.getText().toString(), "utf-8")+"&limit="+1+"&offset="+0, "GET",
+							null);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else if(offset > 1){
 				try {
 					JSONArray jsonarray = json.getJSONArray("data");

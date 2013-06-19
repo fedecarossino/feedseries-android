@@ -100,11 +100,13 @@ public final class ServerUtilities {
     /**
      * Unregister this account/device pair within the server.
      */
-    static void unregister(final Context context, final String regId) {
+    public static void unregister(final Context context, final String regId, final String email) {
         Log.i(TAG, "unregistering device (regId = " + regId + ")");
-        String serverUrl = SERVER_URL + "/unregister";
+        String serverUrl = SERVER_URL + "/deleteSmartPhone";
         Map<String, String> params = new HashMap<String, String>();
         params.put("regId", regId);
+        params.put("smartType", "android");
+        params.put("email", email);
         try {
             post(serverUrl, params);
             GCMRegistrar.setRegisteredOnServer(context, false);
@@ -167,7 +169,7 @@ public final class ServerUtilities {
             out.close();
             // handle the response
             int status = conn.getResponseCode();
-            if (status != 200) {
+            if (status != 200 && status != 201) {
               throw new IOException("Post failed with error code " + status);
             }
         } finally {

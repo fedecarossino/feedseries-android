@@ -14,8 +14,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.fedorvlasov.lazylist.ImageLoader;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gcm.demo.app.R;
+import com.google.android.gcm.demo.app.ServerUtilities;
 import com.login.AndroidLogin;
 
 public class ProfileActivity extends Activity implements OnClickListener{
@@ -31,7 +33,7 @@ public class ProfileActivity extends Activity implements OnClickListener{
 	
 	// Profile json object
 	JSONObject profile;
-	
+	AsyncTask<Void, Void, Void> mRegisterTask;
 	// Profile JSON url
 	
 
@@ -114,15 +116,37 @@ public class ProfileActivity extends Activity implements OnClickListener{
 	}
 	
 	private void logout(){
-    	SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+		
+		ImageLoader cache = new ImageLoader(getApplicationContext());
+        cache.clearCache();
+        
+        GCMRegistrar.checkDevice(this);
+        GCMRegistrar.checkManifest(this);
+        
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        
+        final String regId = GCMRegistrar.getRegistrationId(this);
+        final String emailunregister = pref.getString("email", null);
+        mRegisterTask = new AsyncTask<Void, Void, Void>() {
+        	 protected Void doInBackground(Void... params) {
+        		 ServerUtilities.unregister(getApplicationContext(), regId, emailunregister);
+        		 return null;
+        		 
+        	 }
+             protected void onPostExecute(Void result) {
+                 mRegisterTask = null;
+                 Intent i = new Intent(getApplicationContext(), AndroidLogin.class);
+                 startActivity(i);
+                 finish();
+ 	        	 System.exit(0);
+             }
+        };
+        mRegisterTask.execute(null, null, null);
+        
     	Editor editor = pref.edit();
     	
     	editor.putString("email", null);
     	editor.commit();
-    	GCMRegistrar.unregister(getBaseContext());
-    	Intent i = new Intent(getApplicationContext(), AndroidLogin.class);
-		startActivity(i);
-		finish();
 	}
 
 	@Override

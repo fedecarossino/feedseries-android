@@ -7,7 +7,7 @@
     <EditText android:id="@+id/inputSearchMyShow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search my episodes.."
+        android:hint="Find your followed series..."
         android:inputType="textVisiblePassword"/>
     <ListView
         android:id="@+id/list"

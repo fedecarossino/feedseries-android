@@ -55,7 +55,7 @@ public class MyShowActivity extends Activity {
  	JSONObject json = new JSONObject();
  	InputMethodManager keyboard;
 	int offset = 0;
-	int limit = 3;
+	int limit = 10;
 	Button btnShoeMore;
  	
  	Button b;
@@ -293,44 +293,6 @@ public class MyShowActivity extends Activity {
 				e.printStackTrace();
 			}
 		}
-    }
-    
-    /**
-     * Event Handling for Individual menu item selected
-     * Identify single menu item by it's id
-     * */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        
-        switch (item.getItemId())
-        {
-        case R.id.menu_bookmark:
-        	Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
-        	startActivity(i);
-//    		finish();
-        	// Single menu item is selected do something
-        	// Ex: launching new activity/screen or show alert message
-//            Toast.makeText(AndroidMenusActivity.this, "Bookmark is Selected", Toast.LENGTH_SHORT).show();
-            return true;
-        case R.id.menu_save:
-            ImageLoader cache = new ImageLoader(getApplicationContext());
-            cache.clearCache();
-            
-            SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-        	Editor editor = pref.edit();
-        	
-        	editor.putString("email", null);
-        	editor.commit();
-        	
-        	finish();
-        	System.exit(0);
-//        	Toast.makeText(AndroidMenusActivity.this, "Save is Selected", Toast.LENGTH_SHORT).show();
-            return true;
-
-        default:
-            return super.onOptionsItemSelected(item);
-        }
     }
     
     @SuppressWarnings("deprecation")

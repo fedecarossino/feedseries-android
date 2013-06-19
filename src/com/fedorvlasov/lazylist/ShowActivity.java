@@ -38,8 +38,10 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.fedorvlasov.lazylist.MyShowActivity.LoadShows;
+import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.google.android.gcm.demo.app.R;
+import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.AndroidTabAndListView;
 import com.menu.JSONParser;
 import com.menu.ProfileActivity;
@@ -51,7 +53,7 @@ public class ShowActivity extends Activity {
 	ListView list;
 	private ProgressDialog pDialog;
 	int offset = 0;
-	int limit = 3;
+	int limit = 10;
     LazyAdapter adapter;
     // Creating JSON Parser object
  	JSONParser jsonParser = new JSONParser();
@@ -59,6 +61,7 @@ public class ShowActivity extends Activity {
  	EditText inputSearch;
  	InputMethodManager keyboard;
  	Button btnShoeMore;
+ 	AsyncTask<Void, Void, Void> mRegisterTask;
     
     	
     @Override
@@ -289,14 +292,31 @@ public class ShowActivity extends Activity {
             ImageLoader cache = new ImageLoader(getApplicationContext());
             cache.clearCache();
             
+            GCMRegistrar.checkDevice(this);
+            GCMRegistrar.checkManifest(this);
+            
             SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+            
+            final String regId = GCMRegistrar.getRegistrationId(this);
+            final String emailunregister = pref.getString("email", null);
+            mRegisterTask = new AsyncTask<Void, Void, Void>() {
+            	 protected Void doInBackground(Void... params) {
+            		 ServerUtilities.unregister(getApplicationContext(), regId, emailunregister);
+            		 return null;
+            		 
+            	 }
+                 protected void onPostExecute(Void result) {
+                     mRegisterTask = null;
+                     finish();
+     	        	 System.exit(0);
+                 }
+            };
+            mRegisterTask.execute(null, null, null);
+            
         	Editor editor = pref.edit();
         	
         	editor.putString("email", null);
         	editor.commit();
-            
-        	finish();
-        	System.exit(0);
 //        	Toast.makeText(AndroidMenusActivity.this, "Save is Selected", Toast.LENGTH_SHORT).show();
             return true;
 

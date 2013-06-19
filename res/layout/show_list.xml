@@ -8,7 +8,7 @@
     <EditText android:id="@+id/inputSearchShow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search shows.."
+        android:hint="Find a new serie..."
         android:inputType="textVisiblePassword"/>
     <ListView
         android:id="@+id/list"

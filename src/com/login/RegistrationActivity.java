@@ -139,9 +139,9 @@ public class RegistrationActivity extends Activity implements OnClickListener{
     	params.add(new BasicNameValuePair("userFace", ""));
     	JSONObject json = jsonParser.makeHttpRequest(REGISTER_URL, "POST",
 				params);
-    	if(json.getString("message").contains("correctamente")){
+    	if(json.getString("message").contains("successful")){
     		registerGCM();
-    	}else if(json.getString("message").contains("existe")){
+    	}else if(json.getString("message").contains("exists")){
     		error = true;
     	}
     	
@@ -154,8 +154,8 @@ public class RegistrationActivity extends Activity implements OnClickListener{
     	
     	editor.putString("email", email.getText().toString());
     	editor.commit();
-//    	String redId = postGCM();
-    	String redId = "df";
+    	String redId = postGCM(email.getText().toString());
+//    	String redId = "df";
     	if(redId != null && !redId.equals("")){
     		Intent i = new Intent(getApplicationContext(), AndroidTabAndListView.class);
     		startActivity(i);
@@ -164,7 +164,7 @@ public class RegistrationActivity extends Activity implements OnClickListener{
 		
 	}
 	
-    private String postGCM(){
+    private String postGCM(final String emailRegister){
     	GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this);
         
@@ -183,7 +183,7 @@ public class RegistrationActivity extends Activity implements OnClickListener{
                      @Override
                      protected Void doInBackground(Void... params) {
                          boolean registered =
-                                 ServerUtilities.register(context, regId, pref.getString("email", null));
+                                 ServerUtilities.register(context, regId, emailRegister);
                          // At this point all attempts to register with the app
                          // server failed, so we need to unregister the device
                          // from GCM - the app will try to register again when

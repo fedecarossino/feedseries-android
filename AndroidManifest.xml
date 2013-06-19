@@ -71,11 +71,11 @@
                   android:label="Shows">
         </activity>
         
-   		<activity android:name="com.menu.AndroidTabAndListView" />
+   		<activity android:name="com.menu.AndroidTabAndListView" android:configChanges="orientation|screenSize"/>
    		
    		<activity android:name=".DemoActivity" />
                 <!-- Inbox Activity -->
-        <activity android:name="com.menu.ShowsActivity" />
+        <activity android:name="com.menu.ShowsActivity"/>
 
         <!-- Outbox Activity -->
         <activity android:name="com.menu.MyShowsActivity" />

@@ -91,7 +91,7 @@ public class ShowDescription extends Activity implements OnClickListener{
 			pDialog = new ProgressDialog(ShowDescription.this);
 			pDialog.setMessage("Saving info ...");
 			pDialog.setIndeterminate(true);
-			pDialog.setCancelable(false);
+			pDialog.setCancelable(true);
 			pDialog.show();
 		}
 		

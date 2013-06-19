@@ -25,6 +25,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -47,7 +48,8 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onRegistered(Context context, String registrationId) {
         Log.i(TAG, "Device registered: regId = " + registrationId);
         displayMessage(context, getString(R.string.gcm_registered, registrationId));
-        ServerUtilities.register(context, registrationId, "");
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        ServerUtilities.register(context, registrationId, pref.getString("email", null));
     }
 
     @Override
@@ -55,7 +57,8 @@ public class GCMIntentService extends GCMBaseIntentService {
         Log.i(TAG, "Device unregistered");
         displayMessage(context, getString(R.string.gcm_unregistered));
         if (GCMRegistrar.isRegisteredOnServer(context)) {
-            ServerUtilities.unregister(context, registrationId);
+        	SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+            ServerUtilities.unregister(context, registrationId, pref.getString("email", null));
         } else {
             // This callback results from the call to unregister made on
             // ServerUtilities when the registration to the server failed.
@@ -101,7 +104,7 @@ public class GCMIntentService extends GCMBaseIntentService {
      * Issues a notification to inform the user that server has sent a message.
      */
     private static void generateNotification(Context context, String message, String messageId) {
-        int icon = R.drawable.ic_stat_gcm;
+        int icon = R.drawable.wabila_message;
         long when = System.currentTimeMillis();
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);

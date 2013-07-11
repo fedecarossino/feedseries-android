@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.google.android.gcm.demo.app.R;
+import com.wabila.app.R;
 
 public class LazyAdapter extends BaseAdapter {
     

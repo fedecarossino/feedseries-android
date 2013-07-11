@@ -17,9 +17,6 @@ package com.google.android.gcm.demo.app;
 
 import static com.google.android.gcm.demo.app.CommonUtilities.SENDER_ID;
 import static com.google.android.gcm.demo.app.CommonUtilities.displayMessage;
-
-import java.util.Random;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -31,6 +28,7 @@ import android.util.Log;
 import com.google.android.gcm.GCMBaseIntentService;
 import com.google.android.gcm.GCMRegistrar;
 import com.login.AndroidLogin;
+import com.wabila.app.R;
 
 /**
  * IntentService responsible for handling GCM messages.

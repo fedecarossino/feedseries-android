@@ -1,11 +1,9 @@
 package com.menu;
 
-import android.app.LocalActivityManager;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TabHost;
@@ -15,7 +13,7 @@ import android.widget.TabHost.TabSpec;
 import com.fedorvlasov.lazylist.MyShowActivity;
 import com.fedorvlasov.lazylist.NewsActivity;
 import com.fedorvlasov.lazylist.ShowActivity;
-import com.google.android.gcm.demo.app.R;
+import com.wabila.app.R;
 
 public class AndroidTabAndListView extends TabActivity {
 	// TabSpec Names
@@ -39,14 +37,14 @@ public class AndroidTabAndListView extends TabActivity {
 
         // Outbox Tab
         TabSpec outboxSpec = tabHost.newTabSpec("My Shows");
-        outboxSpec.setIndicator("", getResources().getDrawable(R.drawable.tab_my_shows_large));
+        outboxSpec.setIndicator("", getResources().getDrawable(R.drawable.tab_my_series_large));
         Intent outboxIntent = new Intent(this, MyShowActivity.class);
         outboxIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         outboxSpec.setContent(outboxIntent);
 
         // Inbox Tab
         TabSpec inboxSpec = tabHost.newTabSpec("Shows");
-        inboxSpec.setIndicator("", getResources().getDrawable(R.drawable.tab_shows_large));
+        inboxSpec.setIndicator("", getResources().getDrawable(R.drawable.tab_series_large));
         Intent inboxIntent = new Intent(this, ShowActivity.class);
 //        inboxIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         inboxSpec.setContent(inboxIntent);

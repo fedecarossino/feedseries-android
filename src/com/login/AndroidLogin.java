@@ -34,25 +34,23 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fedorvlasov.lazylist.ImageLoader;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gcm.demo.app.ConnectionDetector;
-import com.google.android.gcm.demo.app.R;
 import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.AndroidTabAndListView;
+import com.wabila.app.R;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 @SuppressLint("NewApi")
 public class AndroidLogin extends Activity implements OnClickListener {
 	
 	Button ok,back,exit;
-	TextView result,registerScreen;
+	TextView result,registerScreen, recoveryScreen;
 	SharedPreferences pref;
 	EditText pword,uname;
 	int status;
@@ -75,6 +73,8 @@ public class AndroidLogin extends Activity implements OnClickListener {
 			finish();
 		}else{
 	        setContentView(R.layout.main_login);
+	        recoveryScreen = (TextView) findViewById(R.id.link_to_recovery);
+	        recoveryScreen.setOnClickListener(this);
 	        
 	        registerScreen = (TextView) findViewById(R.id.link_to_register);
 	        registerScreen.setOnClickListener(this);
@@ -285,6 +285,9 @@ public class AndroidLogin extends Activity implements OnClickListener {
 			}
 		}else if(view == registerScreen){
     		Intent i = new Intent(getApplicationContext(), RegistrationActivity.class);
+    		startActivity(i);
+		}else if(view == recoveryScreen){
+    		Intent i = new Intent(getApplicationContext(), RecoveryPassActivity.class);
     		startActivity(i);
 		}
 	}

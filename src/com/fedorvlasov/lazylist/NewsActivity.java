@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,21 +20,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.fedorvlasov.lazylist.ShowActivity.LoadShows;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gcm.demo.app.ConnectionDetector;
-import com.google.android.gcm.demo.app.R;
 import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.JSONParser;
 import com.menu.ProfileActivity;
+import com.wabila.app.R;
 
 public class NewsActivity extends Activity {
 	    

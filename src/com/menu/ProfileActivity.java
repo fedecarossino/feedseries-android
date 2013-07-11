@@ -16,9 +16,9 @@ import android.widget.TextView;
 
 import com.fedorvlasov.lazylist.ImageLoader;
 import com.google.android.gcm.GCMRegistrar;
-import com.google.android.gcm.demo.app.R;
 import com.google.android.gcm.demo.app.ServerUtilities;
 import com.login.AndroidLogin;
+import com.wabila.app.R;
 
 public class ProfileActivity extends Activity implements OnClickListener{
 	// All xml labels

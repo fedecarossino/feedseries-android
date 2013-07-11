@@ -36,62 +36,41 @@
 		  android:orientation="vertical"
 		  android:layout_width="match_parent"
 		  android:layout_height="wrap_content"
-		  android:layout_marginTop="20dip"
+		  android:layout_marginTop="35dip"
 		  android:padding="10dip"
 		  android:layout_below="@id/header">
-  		  <TextView android:layout_width="fill_parent"
-  		      	android:id="@+id/resultRegister" 	
-		  		android:layout_height="wrap_content"
-		  		android:textColor="#FFFFFF"/>
 		  <!-- Full Name Label -->
 		  <TextView android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
 		  		android:textColor="#FFFFFF"
 		  		android:text="Email"/>
-		  <EditText android:id="@+id/reg_email" 
+		  <EditText android:id="@+id/email_recovery" 
 		  		android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
 		  		android:layout_marginTop="5dip"
 		  		android:singleLine="true"
-		  		android:layout_marginBottom="20dip"/>
+		  		android:hint="Complete your email"
+		  		android:layout_marginBottom="5dip"/>
 		  <!--  Email Label -->
-		  <TextView android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:textColor="#FFFFFF"
-		  		android:text="Password"/>
-		  <EditText android:id="@+id/reg_password_two" 
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:layout_marginTop="5dip"
-		  		android:password="true"
-		  		android:singleLine="true"
-		  		android:layout_marginBottom="20dip"/>
 		  <!-- Password Label -->
-		  <TextView android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:textColor="#FFFFFF"
-		  		android:text="Password"/>
-		  <EditText android:id="@+id/reg_password" 
-		        android:layout_width="fill_parent"
-		  		android:layout_height="wrap_content"
-		  		android:password="true"
-		  		android:singleLine="true"
-		  		android:layout_marginTop="5dip"/>
 		  <!-- Register Button -->		
-		  <Button android:id="@+id/btnRegister" 
+		  <Button android:id="@+id/btnRecovery" 
 		  		android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
 		  		android:layout_marginTop="10dip"
-		  		android:text="Register New Account"
+		  		android:text="Send"
 		  		android:textColor="#ff9800"/>
-
+  		  <TextView android:layout_width="fill_parent"
+  		      	android:id="@+id/resultRecovery" 	
+		  		android:layout_height="wrap_content"
+		  		android:textColor="#FFFFFF"/>
 		  <!-- Link to Login Screen -->
-		  <TextView android:id="@+id/link_to_login" 
+		  <TextView android:id="@+id/link_to_login_recovery" 
 		  		android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
 		  		android:layout_marginTop="40dip"
 		  		android:layout_marginBottom="40dip"
-		  		android:text="Already has account! Login here"
+		  		android:text="Login here"
 		  		android:gravity="center"
 		  		android:textSize="20dip"
 		  		android:textColor="#ff9800">

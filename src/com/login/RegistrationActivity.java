@@ -22,21 +22,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fedorvlasov.lazylist.ShowActivity;
-import com.fedorvlasov.lazylist.ShowDescription;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gcm.demo.app.ConnectionDetector;
-import com.google.android.gcm.demo.app.R;
 import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.AndroidTabAndListView;
 import com.menu.JSONParser;
+import com.wabila.app.R;
 
 
 public class RegistrationActivity extends Activity implements OnClickListener{

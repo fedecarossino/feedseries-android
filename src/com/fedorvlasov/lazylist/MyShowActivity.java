@@ -14,31 +14,25 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
-import com.fedorvlasov.lazylist.NewsActivity.LoadShows;
 import com.google.android.gcm.demo.app.ConnectionDetector;
-import com.google.android.gcm.demo.app.R;
 import com.menu.JSONParser;
-import com.menu.ProfileActivity;
+import com.wabila.app.R;
 
 public class MyShowActivity extends Activity {
     

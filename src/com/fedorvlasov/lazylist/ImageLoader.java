@@ -21,7 +21,7 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import com.google.android.gcm.demo.app.R;
+import com.wabila.app.R;
 
 public class ImageLoader {
     

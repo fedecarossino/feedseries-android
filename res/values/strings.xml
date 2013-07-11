@@ -36,7 +36,7 @@
     <string name="options_exit">Exit</string>
     <string name="error_internet">Error</string>
     <string name="error_internet_message">No Internet, try later</string>
-    <string name="title_delete_message">watch out</string>
-    <string name="text_message_alert">saw the Episode?</string>
+    <string name="title_delete_message">watchout!</string>
+    <string name="text_message_alert">Did you saw it?</string>
 
 </resources>

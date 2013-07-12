@@ -30,8 +30,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.menu.JSONParser;
+import com.wabila.app.ConnectionDetector;
 import com.wabila.app.R;
 
 public class MyShowActivity extends Activity {

@@ -21,8 +21,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gcm.demo.app.ConnectionDetector;
 import com.menu.JSONParser;
+import com.wabila.app.ConnectionDetector;
 import com.wabila.app.R;
 
 

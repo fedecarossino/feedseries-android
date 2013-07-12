@@ -27,11 +27,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
-import com.google.android.gcm.demo.app.ConnectionDetector;
-import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.JSONParser;
 import com.menu.ProfileActivity;
+import com.wabila.app.ConnectionDetector;
 import com.wabila.app.R;
+import com.wabila.app.ServerUtilities;
 
 public class NewsActivity extends Activity {
 	    

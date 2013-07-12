@@ -1,6 +1,6 @@
 package com.login;
 
-import static com.google.android.gcm.demo.app.CommonUtilities.SENDER_ID;
+import static com.wabila.app.CommonUtilities.SENDER_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +30,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
-import com.google.android.gcm.demo.app.ConnectionDetector;
-import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.AndroidTabAndListView;
 import com.menu.JSONParser;
+import com.wabila.app.ConnectionDetector;
 import com.wabila.app.R;
+import com.wabila.app.ServerUtilities;
 
 
 public class RegistrationActivity extends Activity implements OnClickListener{

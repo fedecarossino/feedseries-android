@@ -16,8 +16,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wabila.app"
-    android:versionCode="2"
-    android:versionName="1.1" >
+    android:versionCode="3"
+    android:versionName="1.3" >
 
     <!-- GCM requires Android SDK version 2.2 (API level 8) or above. -->
     <!-- The targetSdkVersion is optional, but it's always a good practice
@@ -117,7 +117,7 @@
           By default, it must be named .GCMIntentService, unless the
           application uses a custom BroadcastReceiver that redefines its name.
         -->
-        <service android:name=".GCMIntentService" />
+        <service android:name="com.wabila.app.GCMIntentService" />
     </application>
 
 </manifest>

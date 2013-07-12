@@ -1,7 +1,7 @@
 package com.login;
 
 
-import static com.google.android.gcm.demo.app.CommonUtilities.SENDER_ID;
+import static com.wabila.app.CommonUtilities.SENDER_ID;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,10 +40,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
-import com.google.android.gcm.demo.app.ConnectionDetector;
-import com.google.android.gcm.demo.app.ServerUtilities;
 import com.menu.AndroidTabAndListView;
+import com.wabila.app.ConnectionDetector;
 import com.wabila.app.R;
+import com.wabila.app.ServerUtilities;
 
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 @SuppressLint("NewApi")

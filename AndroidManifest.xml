@@ -16,8 +16,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wabila.app"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <!-- GCM requires Android SDK version 2.2 (API level 8) or above. -->
     <!-- The targetSdkVersion is optional, but it's always a good practice
@@ -42,10 +42,10 @@
            where PACKAGE is the application's package name.
     -->
     <permission
-        android:name="com.google.android.gcm.demo.app.permission.C2D_MESSAGE"
+        android:name="com.wabila.app.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission
-        android:name="com.google.android.gcm.demo.app.permission.C2D_MESSAGE" />
+        android:name="com.wabila.app.permission.C2D_MESSAGE" />
 
     <!-- This app has permission to register and receive data message. -->
     <uses-permission
@@ -106,7 +106,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.google.android.gcm.demo.app" />
+                <category android:name="com.wabila.app" />
             </intent-filter>
         </receiver>
 
